@@ -1,16 +1,7 @@
-import { execSync } from 'node:child_process'
 import { defineConfig } from 'vite'
 import pkg from './package.json' with { type: 'json' }
 
-const commit = (() => {
-  try {
-    return execSync('git rev-parse --short=12 HEAD', { stdio: ['ignore', 'pipe', 'ignore'] })
-      .toString()
-      .trim()
-  } catch {
-    return 'local-dev'
-  }
-})()
+const commit = process.env.VITE_BUILD_COMMIT ?? 'static'
 
 export default defineConfig({
   base: '/world-demucs/',
