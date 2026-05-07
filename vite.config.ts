@@ -16,7 +16,7 @@ export default defineConfig({
   base: '/world-demucs/',
   build: {
     outDir: 'docs',
-    emptyOutDir: true,
+    emptyOutDir: false,
     sourcemap: true,
     rollupOptions: {
       output: {
