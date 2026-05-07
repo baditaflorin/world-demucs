@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-08T00:00:00Z",
+  "defaultModelId": "browser-low-latency-proxy",
+  "fallbackMode": "Web Audio stem proxy with RNNoise VAD bias; ONNX Runtime Web adapter is available for explicit compatible model URLs.",
+  "models": [
+    {
+      "id": "browser-low-latency-proxy",
+      "label": "Low-latency browser proxy",
+      "status": "placeholder",
+      "url": null,
+      "license": "MIT app code; no neural weights bundled",
+      "sampleRate": 48000,
+      "segmentSeconds": 0.043,
+      "stems": ["vocals", "percussion", "melody", "residue"],
+      "notes": "Runs immediately with Web Audio filters, transient detection, Tone.js rhythm timing, and RNNoise VAD bias."
+    },
+    {
+      "id": "htdemucs-v4-onnx-external",
+      "label": "HTDemucs v4 ONNX external",
+      "status": "external",
+      "url": "https://huggingface.co/MrCitron/demucs-v4-onnx/resolve/main/htdemucs.onnx",
+      "license": "CC-BY-NC-4.0 weights; user-initiated external download",
+      "sampleRate": 44100,
+      "segmentSeconds": 7.8,
+      "stems": ["vocals", "drums", "bass", "other"],
+      "notes": "Large non-commercial external model reference. The app probes it only when a user explicitly enables ONNX loading."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "World-Demucs",
+  "short_name": "World-Demucs",
+  "description": "Real-time browser audio unmixing for vocals, percussion, melody, and ambient residue.",
+  "start_url": "/world-demucs/",
+  "scope": "/world-demucs/",
+  "display": "standalone",
+  "background_color": "#f4f7f4",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "/world-demucs/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -6,11 +6,33 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "scripts/copy-onnx-wasm.sh",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run src",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check .",
+    "smoke": "scripts/smoke.sh"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.2",
+    "eslint": "^10.3.0",
+    "playwright": "^1.59.1",
+    "prettier": "^3.8.3",
     "typescript": "~6.0.2",
-    "vite": "^8.0.10"
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.10",
+    "vitest": "^4.1.5"
+  },
+  "dependencies": {
+    "@shiguredo/rnnoise-wasm": "^2025.1.5",
+    "lucide": "^1.14.0",
+    "onnxruntime-web": "^1.25.1",
+    "tone": "^15.1.22",
+    "zod": "^4.4.3"
   }
 }

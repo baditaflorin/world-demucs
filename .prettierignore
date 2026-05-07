@@ -1,0 +1,6 @@
+docs/assets/
+docs/onnx/
+node_modules/
+coverage/
+playwright-report/
+test-results/
