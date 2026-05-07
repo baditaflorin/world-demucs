@@ -12,11 +12,14 @@ export interface LatestCommit {
 }
 
 export async function fetchLatestCommit(): Promise<LatestCommit> {
-  const response = await fetch('https://api.github.com/repos/baditaflorin/world-demucs/commits/main', {
-    headers: {
-      Accept: 'application/vnd.github+json',
+  const response = await fetch(
+    'https://api.github.com/repos/baditaflorin/world-demucs/commits/main',
+    {
+      headers: {
+        Accept: 'application/vnd.github+json',
+      },
     },
-  })
+  )
 
   if (!response.ok) {
     throw new Error(`GitHub commit lookup failed with HTTP ${response.status}`)

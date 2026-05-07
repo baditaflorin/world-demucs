@@ -1,5 +1,9 @@
 docs/assets/
+docs/models/
+docs/worklets/
 docs/onnx/
+docs/*.html
+docs/sw.js
 node_modules/
 coverage/
 playwright-report/

@@ -33,7 +33,11 @@ import {
   type StemId,
 } from './features/audio/stems'
 import { clearMixerState, loadMixerState, saveMixerState } from './features/audio/storage'
-import { createOnnxDemucsAdapter, createRnnoiseProbe, createToneClock } from './features/audio/processingStack'
+import {
+  createOnnxDemucsAdapter,
+  createRnnoiseProbe,
+  createToneClock,
+} from './features/audio/processingStack'
 import { Visualizer } from './features/audio/visualizer'
 import { buildInfo } from './features/system/buildInfo'
 import { fetchLatestCommit, type LatestCommit } from './features/system/github'
@@ -65,7 +69,8 @@ let onnxState: StackState = 'idle'
 let manifestState: StackState = 'idle'
 let selectedModel: ModelEntry | null = null
 let onnxDetails = 'Adapter not loaded'
-let notice = 'Local-only. Use headphones for live monitoring.'
+let notice = ''
+let noticeTimer = 0
 let busyAction: string | null = null
 
 render()
@@ -82,7 +87,9 @@ engine.addEventListener('meters', (event) => {
   syncMeters()
 })
 
-window.addEventListener('error', () => showNotice('Unexpected app error. Reload and try the demo path.', true))
+window.addEventListener('error', () =>
+  showNotice('Unexpected app error. Reload and try the demo path.', true),
+)
 window.addEventListener('unhandledrejection', () =>
   showNotice('Unexpected async error. Reload and try the demo path.', true),
 )
@@ -544,12 +551,16 @@ function syncUi(): void {
   setText('[data-field="vad-state"]', formatPercent(engineStatus.rnnoiseVad))
   setText('[data-field="output-state"]', formatPercent(Math.min(1, meters.output * 2.5)))
   setText('[data-field="notice"]', notice)
+  document.querySelector('[data-field="notice"]')?.classList.toggle('is-visible', notice.length > 0)
   setText('[data-output="masterGain"]', formatPercent(mixer.masterGain))
   setText('[data-output="wet"]', formatPercent(mixer.wet))
   setText('[data-output="bpm"]', String(Math.round(mixer.bpm)))
   setText('[data-output="rhythmDepth"]', formatPercent(mixer.rhythmDepth))
   setText('[data-field="onnx-details"]', onnxDetails)
-  setText('[data-field="model-meta"]', selectedModel ? modelMeta(selectedModel) : `Manifest ${manifestState}`)
+  setText(
+    '[data-field="model-meta"]',
+    selectedModel ? modelMeta(selectedModel) : `Manifest ${manifestState}`,
+  )
 
   const latest = document.querySelector<HTMLAnchorElement>('[data-field="latest-commit"]')
   if (latestCommit && latest) {
@@ -587,7 +598,9 @@ function syncUi(): void {
   document
     .querySelector('[data-action="toggle-rnnoise"]')
     ?.classList.toggle('is-active', mixer.rnnoiseEnabled)
-  document.querySelector('[data-action="toggle-onnx"]')?.classList.toggle('is-active', mixer.onnxEnabled)
+  document
+    .querySelector('[data-action="toggle-onnx"]')
+    ?.classList.toggle('is-active', mixer.onnxEnabled)
 
   document.querySelectorAll<HTMLButtonElement>('button[data-action]').forEach((button) => {
     button.disabled = Boolean(busyAction && busyAction !== button.dataset.action)
@@ -611,7 +624,14 @@ function setText(selector: string, value: string): void {
 
 function showNotice(message: string, isError = false): void {
   notice = message
-  document.querySelector('[data-field="notice"]')?.classList.toggle('is-error', isError)
+  window.clearTimeout(noticeTimer)
+  const toast = document.querySelector('[data-field="notice"]')
+  toast?.classList.toggle('is-error', isError)
+  toast?.classList.toggle('is-visible', true)
+  noticeTimer = window.setTimeout(() => {
+    notice = ''
+    syncUi()
+  }, 4200)
   syncUi()
 }
 

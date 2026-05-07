@@ -7,7 +7,7 @@ server_pid=$!
 trap 'kill "$server_pid" >/dev/null 2>&1 || true' EXIT
 
 for _ in $(seq 1 40); do
-  if curl -fsS http://127.0.0.1:4175/world-demucs/ >/dev/null; then
+  if curl -fsS http://127.0.0.1:4175/world-demucs/ >/dev/null 2>&1; then
     break
   fi
   sleep 0.25

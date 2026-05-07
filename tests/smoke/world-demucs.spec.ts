@@ -15,5 +15,5 @@ test('loads the Pages build and runs the demo audio path', async ({ page }) => {
   await page.getByRole('button', { name: 'Conversation Bed' }).click()
   await expect(page.locator('[data-preset="conversation-bed"]')).toHaveClass(/is-active/)
   await page.getByRole('button', { name: 'Stop' }).click()
-  await expect(page.getByText('Idle')).toBeVisible()
+  await expect(page.locator('[data-status="mode"]')).toHaveText('Idle')
 })

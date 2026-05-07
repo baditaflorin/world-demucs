@@ -6,13 +6,16 @@ Thanks for improving World-Demucs.
 
 ```bash
 npm install
-npm run dev
+make install-hooks
+make dev
 ```
 
 Before opening a change, run:
 
 ```bash
-npm run build
+make test
+make build
+make smoke
 ```
 
 Use Conventional Commits for commit messages, such as `feat: add stem controls`.

@@ -38,10 +38,7 @@ export async function createRnnoiseProbe(): Promise<RnnoiseProbe> {
   }
 }
 
-export async function createToneClock(
-  bpm: number,
-  onPulse: () => void,
-): Promise<ToneClock> {
+export async function createToneClock(bpm: number, onPulse: () => void): Promise<ToneClock> {
   const Tone = await import('tone')
   await Tone.start()
   Tone.Transport.bpm.value = bpm
@@ -65,9 +62,7 @@ export async function createToneClock(
   }
 }
 
-export async function createOnnxDemucsAdapter(
-  modelUrl: string | null,
-): Promise<OnnxDemucsAdapter> {
+export async function createOnnxDemucsAdapter(modelUrl: string | null): Promise<OnnxDemucsAdapter> {
   const ort = await import('onnxruntime-web')
   ort.env.wasm.numThreads = 1
   ort.env.wasm.wasmPaths = `${import.meta.env.BASE_URL}onnx/`

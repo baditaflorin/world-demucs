@@ -38,7 +38,5 @@ export async function loadModelManifest(): Promise<ModelManifest> {
 }
 
 export function getDefaultModel(manifest: ModelManifest): ModelEntry {
-  return (
-    manifest.models.find((model) => model.id === manifest.defaultModelId) ?? manifest.models[0]
-  )
+  return manifest.models.find((model) => model.id === manifest.defaultModelId) ?? manifest.models[0]
 }

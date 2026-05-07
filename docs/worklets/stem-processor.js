@@ -112,7 +112,8 @@ class StemProcessor extends AudioWorkletProcessor {
         const control = this.mixer.stems[id]
         const audible = hasSolo ? control.solo : !control.muted
         const sign = control.inverted ? -1 : 1
-        const bed = this.mixer.rhythmEnabled && (id === 'vocals' || id === 'residue') ? rhythmGate : 1
+        const bed =
+          this.mixer.rhythmEnabled && (id === 'vocals' || id === 'residue') ? rhythmGate : 1
         const sample = audible ? stems[id] * control.gain * sign * bed : 0
         wet += sample
         this.sums[id] += sample * sample
@@ -143,7 +144,8 @@ class StemProcessor extends AudioWorkletProcessor {
     const residue = this.filters.residue.process(input)
     const vocalBand = this.filters.vocalLow.process(this.filters.vocalHigh.process(input))
     const melodyBand = this.filters.melodyLow.process(this.filters.melodyHigh.process(input))
-    const transientTone = this.filters.percussionHigh.process(input) + this.filters.air.process(input) * 0.25
+    const transientTone =
+      this.filters.percussionHigh.process(input) + this.filters.air.process(input) * 0.25
     const transientGate = Math.min(1, Math.max(0, flux * 22 + this.energy * 0.22))
     const voiceWeight = 0.58 + this.voiceBias * 0.62
 
